@@ -17,9 +17,8 @@ CREATE TABLE Users(
 
 CREATE TABLE Tables(
     tableID int NOT NULL AUTO_INCREMENT,
-    tableSeats varchar(255) NOT NULL,
+    tableSeats int NOT NULL,
     tableStatus varchar(255) NOT NULL,
-    tableSeats varchar(255) NOT NULL,
     PRIMARY KEY (tableID)
 );
 
@@ -27,8 +26,8 @@ CREATE TABLE Reservations(
     reservationID int NOT NULL AUTO_INCREMENT,
     userID int NOT NULL,
     tableID int NOT NULL,
-    PRIMARY KEY (reservationID)
-    FOREIGN KEY(userID) REFERENCES Users (userID)
+    PRIMARY KEY (reservationID),
+    FOREIGN KEY(userID) REFERENCES Users (userID),
     FOREIGN KEY(tableID) REFERENCES Tables (tableID)
 );
 
