@@ -33,6 +33,8 @@ CREATE TABLE Reservations(
 );
 
 
+
+
 /*
 CREATE TABLE usersInfo(
     userID int NOT NULL AUTO_INCREMENT,
