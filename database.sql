@@ -1,10 +1,39 @@
-CREATE DATABASE websiteDatabase;
+CREATE DATABASE restaurantDatabase;
 
-GRANT ALL PRIVILEGES ON websiteDatabase.* TO 'testuser'@'localhost' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON restaurantDatabase.* TO 'testuser'@'localhost' IDENTIFIED BY '1234';
 FLUSH PRIVILEGES;
 
-USE websiteDatabase;
+USE restaurantDatabase;
 
+CREATE TABLE Users(
+    userID int NOT NULL AUTO_INCREMENT,
+    userName varchar(255) NOT NULL UNIQUE,
+    userPassword varchar(255) NOT NULL,
+    firstName varchar(255) NOT NULL,
+    lastName varchar(255) NOT NULL,
+    emailAddress varchar(255) NOT NULL,
+    PRIMARY KEY (userID)
+);
+
+CREATE TABLE Tables(
+    tableID int NOT NULL AUTO_INCREMENT,
+    tableSeats varchar(255) NOT NULL,
+    tableStatus varchar(255) NOT NULL,
+    tableSeats varchar(255) NOT NULL,
+    PRIMARY KEY (tableID)
+);
+
+CREATE TABLE Reservations(
+    reservationID int NOT NULL AUTO_INCREMENT,
+    userID int NOT NULL,
+    tableID int NOT NULL,
+    PRIMARY KEY (reservationID)
+    FOREIGN KEY(userID) REFERENCES Users (userID)
+    FOREIGN KEY(tableID) REFERENCES Tables (tableID)
+);
+
+
+/*
 CREATE TABLE usersInfo(
     userID int NOT NULL AUTO_INCREMENT,
     userName varchar(255) NOT NULL UNIQUE,
@@ -18,8 +47,6 @@ CREATE TABLE usersInfo(
     PRIMARY KEY (userID)
 );
 
--- ALTER TABLE usersInfo
--- ADD CONSTRAINT UNIQUE (userName);
 
 CREATE TABLE lostPets(
     lostID  int NOT NULL AUTO_INCREMENT,
@@ -75,3 +102,4 @@ CREATE TABLE donations(
     PRIMARY KEY (donationID),
     FOREIGN KEY(userID) REFERENCES usersInfo (userID)
 );
+*/
