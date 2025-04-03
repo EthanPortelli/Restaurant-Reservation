@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="mainpageStyle.css">
+    <script src="https://kit.fontawesome.com/2e1a459034.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <!--each icon on navigation bar should take you to respectable page-->
+    <div class="navbar" id="myNavbar" >
+        <!-- Logo -->
+        <img src="projectImages/logo.png" alt="Logo" title="Logo of Application" height="100px">
+        
+        <!-- Navigation Links -->
+        <!--each link references another html page-->
+        <div class="nav-links" id="navLinks">
+            <!-- <a href="mainpage.html"><i class="fa fa-fw fa-home"></i> Home</a> 
+            <div class="dropdown">
+                <button class="dropbtn">Posts 
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="missingPetPost.html"><i class="fa-solid fa-paw"></i> Missing pets</a> 
+                    <a href="ReunitedPets.html"><i class="fa-solid fa-paw"></i> Reunited pets</a>       
+                </div>
+              </div> 
+            <a href="donationPostPage.html"><i class="fa-solid fa-box"></i> Donations</a> 
+            <a href="login&signup.html"><i class="fa-solid fa-right-to-bracket"></i> login </a> 
+             -->
+        </div>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+    </div>
+
+    <!--<div class = "website-name">
+        <h1>Pet WRU</h1>
+    </div>-->
+
+    <div class="container">
+        <img src="projectImages/homepage drw.jpeg" alt="illustration" class="left-image">
+        <!-- Add request to report missing pet Form -->
+         <div class="text-content">
+            <h1>Need help finding a missing pet? </h1>
+            <h2>Create a flyer and post it on our website <br>
+            by clicking the "report" button below</h2>
+            
+            <button id="reportButton" type="button">Report Missing Pet</button>            
+         </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="aboutUs.html">About us</a>
+            <a href="resources.html">Resources</a>
+            <a href="https://github.com/jennefercampoverde/Pet-WRU.git">GitHub</a>
+        </div>
+        <p class="copyright">&copy; 2025 Pet WRU. All rights reserved.</p>
+    </footer>
+
+    <script>
+
+
+        document.addEventListener("DOMContentLoaded", async function () {
+            console.log("JavaScript loaded successfully!"); // Debugging
+
+            async function getUserID() {
+                try {
+                    const response = await fetch('/getUserID');
+                    const data = await response.json();
+                    return data.userID; // Return user ID or null
+                } catch (error) {
+                    console.error('Error fetching user ID:', error);
+                    return null;
+                }
+            }
+
+            async function loginNavbar() {
+                try {
+                    const userID = await getUserID();
+                    let navLinks = document.getElementById("navLinks");
+
+                    if (!navLinks) {
+                        console.error("Error: navLinks not found in DOM.");
+                        return;
+                    }
+
+                    // Update navbar dynamically based on login status
+                    navLinks.innerHTML = userID
+                        ? `
+                            <a href="mainpage.html"><i class="fa fa-fw fa-home"></i> Home</a>
+                            <div class="dropdown">
+                                <button class="dropbtn">Posts 
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                                <div class="dropdown-content">
+                                    <a href="createFlier.html"><i class="fa-solid fa-file-pen"></i> Report Missing pet</a>
+                                    <a href="missingPetPost.html" class="auth-link"><i class="fa-solid fa-paw"></i> Missing pets</a>
+                                    <a href="ReunitedPets.html" class="auth-link"><i class="fa-solid fa-paw"></i> Reunited pets</a>        
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <button class="dropbtn">Donations 
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                                <div class="dropdown-content">
+                                    <a href="createDonation.html" class="auth-link"><i class="fa-solid fa-box"></i> Donate Today</a>
+                                    <a href="donationPostPage.html" class="auth-link"><i class="fa-solid fa-box"></i> Donations</a>        
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <button class="dropbtn">Account 
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                                <div class="dropdown-content">
+                                    <a href="userpage.html"><i class="fa-solid fa-circle-user"></i> Account Profile</a>
+                                    <a href="#" id="signOut"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>        
+                                </div>
+                            </div>`
+                        : `
+                            <a href="mainpage.html"><i class="fa fa-fw fa-home"></i> Home</a>
+                            <div class="dropdown">
+                                <button class="dropbtn">Posts 
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                                <div class="dropdown-content">
+                                    <a href="createFlier.html"><i class="fa-solid fa-file-pen"></i> Report Missing pet</a>
+                                    <a href="missingPetPost.html" class="auth-link"><i class="fa-solid fa-paw"></i> Missing pets</a>
+                                    <a href="ReunitedPets.html" class="auth-link"><i class="fa-solid fa-paw"></i> Reunited pets</a>        
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <button class="dropbtn">Donations 
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                                <div class="dropdown-content">
+                                    <a href="createDonation.html" class="auth-link"><i class="fa-solid fa-box"></i> Donate Today</a>
+                                    <a href="donationPostPage.html" class="auth-link"><i class="fa-solid fa-box"></i> Donations</a>        
+                                </div>
+                            </div>
+                            <a href="loginPage.html"><i class="fa-solid fa-right-to-bracket"></i> Login</a>`;
+
+                    // Now that navbar is updated, attach authentication checks & logout event
+                    applyAuthRedirects();
+                    applyLogoutEvent();
+
+                    // Dynamic Active Link Highlighting
+                    document.querySelectorAll('.nav-links a').forEach(link => {
+                            if (link.href === window.location.href) {
+                                link.classList.add('active');
+                            } else {
+                                link.classList.remove('active');
+                            }
+                    });
+                    
+                    } catch (error) {
+                        console.error('Error updating navbar:', error);
+                    }
+            }
+
+            function applyAuthRedirects() {
+                async function handleAuthRedirect(event, page) {
+                    event.preventDefault();
+                    let userID = await getUserID();
+
+                    if (!userID) {
+                        alert("Please log in to access this page.");
+                        window.location.href = "loginPage.html";
+                    } else {
+                        window.location.href = page;
+                    }
+                }
+
+                document.querySelectorAll(".auth-link").forEach(link => {
+                    link.addEventListener("click", function (event) {
+                        handleAuthRedirect(event, link.getAttribute("href"));
+                    });
+                });
+            }
+
+            function applyLogoutEvent() {
+                const signOutButton = document.getElementById("signOut");
+
+                if (signOutButton) {
+                    signOutButton.addEventListener("click", async () => {
+                        try {
+                            await fetch('/logout', { method: 'POST' });
+                            sessionStorage.removeItem("userID"); // Clear cache
+                            window.location.href = 'loginPage.html'; // Redirect to login
+                        } catch (error) {
+                            console.error("Logout failed:", error);
+                        }
+                    });
+                } else {
+                    console.warn("Sign-out button not found in DOM.");
+                }
+            }
+
+            // Call function when page loads
+            await loginNavbar(); // Wait for navbar to be updated before applying event listeners
+
+            // Also apply to the "Report Missing Pet" button
+            let reportButton = document.getElementById("reportButton");
+            if (reportButton) {
+                reportButton.addEventListener("click", async function (event) {
+                    event.preventDefault();
+                    let userID = await getUserID();
+
+                    if (!userID) {
+                        alert("Please log in to report a missing pet.");
+                        window.location.href = "loginPage.html"; 
+                    } else {
+                        window.location.href = "createFlier.html"; 
+                    }
+                });
+            } else {
+                console.error("Error: reportButton not found in DOM.");
+            }
+        });
+
+        // Responsive Navigation Toggle
+        function myFunction() {
+            let navbar = document.getElementById("navLinks");
+            navbar.classList.toggle("responsive");
+        }
+
+
+
+    </script>
+</body>
+</html>
