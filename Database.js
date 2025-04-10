@@ -6,7 +6,7 @@ const pool = mariadb.createPool({
     host: "localhost", // Database host
     user: "testuser", // Database username
     password: "1234", // Database password
-    database: "websiteDatabase", // Database name
+    database: "restaurantDatabase", // Database name
     connectionLimit: 10, // Maximum number of connections in the pool
     //port: 3307 //for sheila
 });

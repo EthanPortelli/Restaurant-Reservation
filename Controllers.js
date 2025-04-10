@@ -7,7 +7,7 @@ exports.login = async (req, res) => {
 
     try {
         const conn = await pool.getConnection();
-        const result = await conn.query("SELECT * FROM usersInfo WHERE userName = ?", [UserName]);
+        const result = await conn.query("SELECT * FROM Users WHERE userName = ?", [UserName]);
 
         if (result.length > 0) {
             const usersInfo = result[0];
@@ -16,7 +16,6 @@ exports.login = async (req, res) => {
             if (passwordMatch) {
                 // Store user ID in the session
                 req.session.userID = usersInfo.userID;
-                console.log(`User logged in: ${usersInfo.firstName} ${usersInfo.lastName}, ID: ${req.session.userID}`);
                 res.json({ ID: usersInfo.userID, success: true });
 
             } else {
@@ -51,7 +50,7 @@ exports.logout = async (req, res) => {
 
 //Route to register an account with a hashed password
 exports.register = async (req, res) => {
-    const { UserName, FirstName, LastName, DOB, emailAddress, userPassword, Zipcode, City } = req.body;
+    const { UserName, userPassword } = req.body;
 
     let hash;
     try {
@@ -65,7 +64,7 @@ exports.register = async (req, res) => {
     try {
         const conn = await pool.getConnection();
 
-        const results = await conn.query("SELECT * FROM usersInfo WHERE userName = ?", [UserName]);
+        const results = await conn.query("SELECT * FROM Users WHERE userName = ?", [UserName]);
         const existingUser = results[0]; // Extract the first element
 
         if (existingUser && existingUser.length > 0) {
@@ -75,10 +74,9 @@ exports.register = async (req, res) => {
 
 
         // Insert the new user into the database
-        const result = await conn.query("INSERT INTO usersInfo (userName, firstName, lastName, dob, emailAddress, userPassword, zipcode, city) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-            [UserName, FirstName, LastName, DOB, emailAddress, hash, Zipcode, City]);
+        const result = await conn.query("INSERT INTO Users (userName, userPassword) VALUES (?, ?)",
+            [UserName, hash]);
 
-        console.log(`Account registered: ${FirstName} ${LastName}`);
         res.json({ message: 'Account created successfully!', success: true });
         conn.release();
     } catch (err) {
@@ -100,6 +98,43 @@ exports.getUserID = async (req, res) => {
         return res.json({ userID: null });
     }
 };
+
+
+//Get user information
+exports.getUserInfo = async (req, res) => {
+    try {
+        const userID = req.session.userID;
+        const conn = await pool.getConnection();
+        const rows = await conn.query("SELECT * FROM Users WHERE userID = ?", [userID]);
+        res.json(rows);
+        conn.release();
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Database error when getting user information.' });
+    }
+};
+
+
+// LOAD USER LIST ROUTE (Admin Only)
+exports.getTables = async (req, res) => {
+    try {
+        const conn = await pool.getConnection();
+        const rows = await conn.query("SELECT * FROM Tables");
+        res.json(rows);
+        conn.release();
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Database error' });
+    }
+};
+
+
+
+
+
+
+
+
 
 
                                         //START OF ROUTES FOR EDITING ACCOUNT INFORMATION
@@ -889,19 +924,7 @@ exports.filterDonations = async (req, res) => {
 };
 
 
-//Get user information
-exports.getUserInfo = async (req, res) => {
-    try {
-        const userID = req.session.userID;
-        const conn = await pool.getConnection();
-        const rows = await conn.query("SELECT * FROM usersInfo WHERE userID = ?", [userID]);
-        res.json(rows);
-        conn.release();
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Database error when getting user information.' });
-    }
-};
+
 
 exports.reunitedFilter = async (req, res) => {
     const {userOption}= req.params;

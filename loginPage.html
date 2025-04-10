@@ -9,44 +9,16 @@
 </head>
 <body>
 	<!-- Top Navigation Bar -->
-    <!--each icon on navigation bar should take you to respectable page-->
     <div class="navbar">
-        <!-- Logo -->
-        <img src="projectImages/logo.png" alt="Logo" title="Logo of Application" height="100px">
-        
         <!-- Navigation Links -->
-        <!--each link references another html page-->
-        <div class="nav-links" id="navLinks">
-            <a href="mainpage.html"><i class="fa fa-fw fa-home"></i> Home</a> 
-            <div class="dropdown">
-                <button class="dropbtn">Posts 
-                  <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="createFlier.html"><i class="fa-solid fa-file-pen"></i> Report Missing pet</a>
-                    <a href="missingPetPost.html"><i class="fa-solid fa-paw"></i> Missing pets</a> 
-                    <a href="ReunitedPets.html"><i class="fa-solid fa-paw"></i> Reunited pets</a>       
-                </div>
-            </div> 
-            <div class="dropdown">
-                <button class="dropbtn">Donations 
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="createDonation.html" class="auth-link"><i class="fa-solid fa-box"></i> Donate Today</a>
-                    <a href="donationPostPage.html" class="auth-link"><i class="fa-solid fa-box"></i> Donations</a>        
-                </div>
-            </div>  
-            <a href="loginPage.html"><i class="fa-solid fa-right-to-bracket"></i> login </a> 
-        </div>
-        <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
-    </div>
+        <!-- not displayed since this is page that opens on load and login required-->
+   </div>
 
-	<h1 id="PageHeading"> Please log in or create and account. </h1>
+	<h1 id="PageHeading"> To get started, please log in or create an account. </h1>
 	    <section>
             <div class="postLogin">
                 <div class="login">
-                    <h4> Log in </h4>
+                    <h3> Log in: </h3>
 			        <form id="loginForm">
                         <label for="loginUsername">Username: </label><br>
                         <input type="text" id="loginUsername" required><br><br>
@@ -56,7 +28,7 @@
     
                         <button type="submit">Login</button>
                     </form>
-                    <button onclick="window.location.href='signupPage.html'" style="margin-top: 50px;">Don't have an account? Sign up</button>        
+                    <button onclick="window.location.href='signupPage.html'" style="margin-top: 50px;">Don't have an account? Sign up here</button>        
                 </div> 
             </div>       
 	    </section>   
@@ -106,8 +78,7 @@
                 link.classList.remove('active');
             }
     });
-
-    
+ 
     </script>
 </body>
 </html>

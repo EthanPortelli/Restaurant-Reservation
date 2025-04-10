@@ -9,16 +9,13 @@ CREATE TABLE Users(
     userID int NOT NULL AUTO_INCREMENT,
     userName varchar(255) NOT NULL UNIQUE,
     userPassword varchar(255) NOT NULL,
-    firstName varchar(255) NOT NULL,
-    lastName varchar(255) NOT NULL,
-    emailAddress varchar(255) NOT NULL,
     PRIMARY KEY (userID)
 );
 
 CREATE TABLE Tables(
     tableID int NOT NULL AUTO_INCREMENT,
     tableSeats int NOT NULL,
-    tableStatus varchar(255) NOT NULL,
+    tableStatus ENUM('Available','Claimed') NOT NULL,
     PRIMARY KEY (tableID)
 );
 

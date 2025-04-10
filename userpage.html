@@ -9,47 +9,16 @@
 </head>
 <body>
 	<!-- Top Navigation Bar -->
-    <!--each icon on navigation bar should take you to respectable page-->
-    <!-- Top Navigation Bar -->
-    <!--each icon on navigation bar should take you to respectable page-->
     <div class="navbar" id="myNavbar" >
-        <!-- Logo -->
-        <img src="projectImages/logo.png" alt="Logo" title="Logo of Application" height="100px">
-        
+       
         <!-- Navigation Links -->
-        <!--each link references another html page-->
         <div class="nav-links" id="navLinks">
-            <a href="mainpage.html"><i class="fa fa-fw fa-home"></i> Home</a>
-            <div class="dropdown">
-                <button class="dropbtn">Posts 
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="createFlier.html"><i class="fa-solid fa-file-pen"></i> Report Missing pet</a>
-                    <a href="missingPetPost.html" class="auth-link"><i class="fa-solid fa-paw"></i> Missing pets</a>
-                    <a href="ReunitedPets.html" class="auth-link"><i class="fa-solid fa-paw"></i> Reunited pets</a>        
-                </div>
-            </div>
-            <div class="dropdown">
-                <button class="dropbtn">Donations 
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="createDonation.html" class="auth-link"><i class="fa-solid fa-box"></i> Donate Today</a>
-                    <a href="donationPostPage.html" class="auth-link"><i class="fa-solid fa-box"></i> Donations</a>        
-                </div>
-            </div>  
-            <div class="dropdown">
-                <button class="dropbtn">Account 
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="userpage.html"><i class="fa-solid fa-circle-user"></i> Account Profile</a>
-                    <a href="#" id="signOut"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>        
-                </div>
-            </div>
+            <div class="container">
+                <a href="mainpage.html"><i class="fa fa-fw fa-home"></i> Home</a>
+                <a href="userpage.html"><i class="fa-solid fa-circle-user"></i> Account Profile</a>
+                <a href="#" id="signOut"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>        
+            </div>            
         </div>
-        <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
     </div >
 	
 	
@@ -57,103 +26,18 @@
         <div id="UserHeading">
         </div>
         <div id="userInformation" class="userInformation">
-            <h3>
-                My Profile
-            </h3>
+            
         </div>
         
-        <div class="userInformation-Form">
-            <h3> Update Your Current Account Information </h3>
-
-            <form id="editUsername" action="/editUsername" method="POST">
-                <label for="Username">Change Your Username:</label>
-                <input type="text" id="Username" name="userName" />
-                <input type="submit" value="Edit" />
-            </form>
-            <br>
-            <form id="editPassword" action="/editPassword" method="POST">
-                <label for="Password">Change Your Password:</label>
-                <input type="text" id="Password" name="userPassword" />
-                <input type="submit" value="Edit" />
-            </form>
-            <br>
-            <form id="editEmail" action='/editEmail' method="POST">
-                <label for="Email">Change Your Email Address:</label>
-                <input type="text" id="Email" name="emailAddress" />
-                <input type="submit" value="Edit" />
-            </form>
-            <br>
-            <form id="editZip" action="/editZip" method="POST">
-                <label for="Zip">Change Your Zip Code:</label>
-                <input type="text" id="Zip" name="zipcode" />
-                <input type="submit" value="Edit" />
-            </form>
-            <br>
-            <form id="editCity" action="/editCity" method="POST">
-                <label for="City">Change Your City:</label>
-                <input type="text" id="City" name="city" />
-                <input type="submit" value="Edit" />
-            </form>
-            <br>
-        </div>
     </section>
 
+    
     <section>
-		<h3> Related Posts: </h3>
-        <!--Add section to pull posts based on the userID associated with current account-->
-        <div class="relatedPosts">
-            <div id="relatedHeading">
-
-            </div>
-                <div id="post-container">
-                
-                </div>
-            <div id="relatedHeading-Missing">
-
-            </div>
-                <div id="post-container-missing">
-                
-                </div>
-            <div id="relatedHeading-Found">
-
-            </div>
-
-
-                <div id="post-container-found">
-                
-                </div>
-                <!--
-                <div class="post" data-time="2025-01-30T12:00:00">
-                    <img src="ProjectPictures2/DogCollar.jpg" alt="Dog Collar">
-                    <div class="post-info">
-                        <h3>Dog Collar</h3>
-                        <p> Condition: Like New</p>
-                        <small>Posted on: Jan 30, 2025</small>
-                    </div>
-                </div>
-                -->
-            </div>
-        </div>        
-	</section>
-    <section>
-        <div class="userLinks">
-            <p>Need to make a new lost pet post?</p>
-            <form action="createFlier.html" method="get">
-                <button type="submit">Post Now!</button>
-            </form>
-            
-            <p>Need to make a Donation?</p>
-            <form action="createDonation.html" method="get">
-                <button type="submit">Donate Now!</button>
-            </form>
-        </div>
+        
         <footer>
             <div class="footer-links">
-                <a href="aboutUs.html">About us</a>
-                <a href="resources.html">Resources</a>
-                <a href="https://github.com/jennefercampoverde/Pet-WRU.git">GitHub</a>
+                <a href="https://github.com/EthanPortelli/Restaurant-Reservation">GitHub</a>
             </div>
-            <p class="copyright">&copy; 2025 Pet WRU. All rights reserved.</p>
         </footer>
         
     </section>
@@ -176,24 +60,13 @@
                     const headerDiv= document.getElementById("UserHeading");
                     
                     const welcomeHeader = document.createElement('h1');
-                    welcomeHeader.textContent = `Welcome to your page, ${user.firstName}!`;
+                    welcomeHeader.textContent = `Account Information`;
                     welcomeHeader.classList.add('UserHeading');
                     headerDiv.appendChild(welcomeHeader);
 
                     // Display current user info from database
 
                     const infoDiv= document.getElementById("userInformation");
-
-                    const imgAvatar= document.createElement("img");
-                    imgAvatar.src= 'serverImages/userAvatar.png';
-                    //imgAvatar.classList.add('user-avatar');
-                    infoDiv.appendChild(imgAvatar);
-
-
-                    //creating Name text
-                    const name = document.createElement('h3');
-                    name.textContent = `${user.firstName} ${user.lastName} `;
-                    infoDiv.appendChild(name);
 
                     //creating username text
                     const textUsername = document.createElement('strong');
@@ -206,33 +79,12 @@
                     
                     infoDiv.appendChild(infoUsername);
 
-
-                    //creating email text
-                    const textEmail = document.createElement('strong');
-                    textEmail.textContent = `Current Email: `;
-                    infoDiv.appendChild(textEmail);
-
-                    //Adding email
-                    const infoEmail = document.createElement('p');
-                    infoEmail.textContent = `${user.emailAddress}`;
-                    infoDiv.appendChild(infoEmail);
-
-                    //creating zipcode text
-                    const textZipcode = document.createElement('strong');
-                    textZipcode.textContent = `Current Zipcode: `;
-                    infoDiv.appendChild(textZipcode);
-
-                    //Adding zipcode
-                    const infoZipcode = document.createElement('p');
-                    infoZipcode.textContent = `${user.zipcode}`;
-                    infoDiv.appendChild(infoZipcode);
-
-                    //creating city text
+                    //creating Reservations text
                     const textCity = document.createElement('strong');
-                    textCity.textContent = `Current City: `;
+                    textCity.textContent = `Current Reservations: `;
                     infoDiv.appendChild(textCity);
 
-                    //Adding City 
+                    //Adding Reservations 
                     const infoCity = document.createElement('p');
                     infoCity.textContent = `${user.city}`;
                     infoDiv.appendChild(infoCity);
@@ -247,53 +99,7 @@
                 });
         });
 
-        // Function to handle form submission for updating fields
-        async function updateAccount(event) {
-            event.preventDefault();
-
-            const form = event.target;
-            const submitButton = form.querySelector('input[type="submit"]');
-            submitButton.disabled = true;  // Disable submit button
-
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData);
-
-            const response = await fetch(form.action, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-
-            const result = await response.json();
-
-            submitButton.disabled = false;  // Re-enable the submit button
-
-            if (result.success) {
-                alert(result.message); 
-                window.location.reload(); //refresh page 
-                form.reset();
-            } else {
-                alert(result.message || 'Error updating account.');
-            }
-        }
-
-    document.getElementById("editUsername").addEventListener("submit", updateAccount);
-    document.getElementById("editPassword").addEventListener("submit", updateAccount);
-    document.getElementById("editEmail").addEventListener("submit", updateAccount);
-    document.getElementById("editZip").addEventListener("submit", updateAccount);
-    document.getElementById("editCity").addEventListener("submit", updateAccount);
-
-
-
-        function myFunction() {
-            var navbar = document.getElementById("navLinks");
-            if (navbar.classList.contains("responsive")) {
-                navbar.classList.remove("responsive");
-            } else {
-                navbar.classList.add("responsive");
-            }
-        }
-
+ 
         // sign out
         document.addEventListener("DOMContentLoaded", () => {
             const signOutButton = document.getElementById("signOut");
@@ -313,423 +119,8 @@
             }
         });
 
-        // Dynamic Active Link Highlighting
-        document.querySelectorAll('.nav-links a').forEach(link => {
-                if (link.href === window.location.href) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-        });
 
-        //SHOWING USER RELATED DONATIONS POSTS
-        document.addEventListener("DOMContentLoaded", () => {
-        
-            const dateFormat= {month:'short', day:'numeric',year:'numeric'};
-
-            if (document.getElementById('post-container')){
-                console.log('Related post list element found on DOM. Calling showRelatedDonations()...');
-                showRelatedDonations();
-                console.log('Related post list element found on DOM. Calling showRelatedMissingPosts()...');
-                showRelatedMissingPosts();
-                console.log('Related post list element found on DOM. Calling showRelatedFoundPosts...');
-                showRelatedFoundPosts();
-            }
-            else{
-                console.log('Unable to find Related post list element on DOM');
-            }
-            
-
-            async function showRelatedDonations(){
-
-                console.log("Loading user related donations...");
-                try{
-
-                    const response = await fetch('http://localhost:3000/showRelatedDonations');
-                    if(!response.ok){
-                        console.log("Received response:", response.status); // Log the response status
-                        throw new Error( 'Failed to fetch related user donation posts.')
-                    }
-
-                    const donationPosts= await response.json();
-                    console.log("Donation data:", donationPosts);
-                    //creating GUI
-                    const donationPostsList = document.getElementById('post-container');
-                    if (!donationPostsList) {
-                    console.error("Element with ID 'post-container' not found."); // Log if the element is not found
-                    return;}
-
-                    donationPostsList.innerHTML = ''; // Clear the list before adding new items
-        
-                if (donationPosts.length === 0) {
-                    /*donationPostsList.textContent = 'No donations entries.';
-                    const textDisplay= document.createElement('p');
-                    textDisplay.textContent= 'You have no current donation posts';
-                    document.getElementById('post-container').appendChild(textDisplay);*/
-                    console.log('No related donations posts for this user');
-                } else {
-
-                    const donationTitle= document.createElement('h3');
-                    donationTitle.textContent= 'Your Current Donation Posts';
-                    document.getElementById('relatedHeading').appendChild(donationTitle);
-
-                    donationPosts.forEach(post => {
-                        //new div for post 
-                        const postElement = document.createElement('div');
-     
-                        //new div for post
-                        const innerPostElement = document.createElement('div');
-    
-                        const pathFolder="donationsImages/"
-                        
-                        //grabbing item image
-                        const postImg= document.createElement('img');
-                        postImg.src=pathFolder + `${post.item_image_path}`;
-    
-                        console.log(postImg)
-                        //creating div to hold a post
-                        const postInfoElement = document.createElement('div');
-                    
-                        //creating header element that holds item name
-                        const postHeader = document.createElement('h3');
-                        postHeader.textContent = `${post.itemName}`;
-                        console.log(postHeader);
-                        
-                        
-                        //creating a paragraph element that holds condition 
-                        const postParagraph = document.createElement('p');
-                        postParagraph.textContent=`Condition: ${post.itemCondition}`;
-                        console.log(postParagraph);
-
-                        // Paragraph with status
-                        const postStatus = document.createElement('p');
-                        postStatus.textContent = `Status: ${post.itemStatus}`;
-
-                        // Paragraph with zipcode
-                        const postZipcode = document.createElement('p');
-                        postZipcode.textContent = `Zipcode: ${post.zipcode}`;
-
-                        // Paragraph with zipcode
-                        const postDescription = document.createElement('p');
-                        postDescription.textContent = `Description: ${post.itemDescription}`;
-    
-                        //cleaning up date created data from JSON
-                        const dateCreated=new Date(post.dateCreated).toLocaleDateString("en-US",dateFormat);
-    
-                        //creating a small element that holds the date when the post was created
-                        const postSmall = document.createElement('small');
-                        postSmall.textContent = `Date Posted: ${dateCreated}`;
-                        console.log(postSmall);
-                        
-                        // Adding all elements to front end by nesting the divs
-    
-                        innerPostElement.appendChild(postImg); // image goes first and within post
-    
-                        postInfoElement.appendChild(postHeader); // then header and within post-info
-                        innerPostElement.appendChild(postInfoElement);
-                        
-                        postInfoElement.appendChild(postStatus); //adding status 
-                        postInfoElement.appendChild(postParagraph); // last dates and within post-info
-                        innerPostElement.appendChild(postInfoElement);
-                        
-                        postInfoElement.appendChild(postZipcode);
-                        postInfoElement.appendChild(postDescription);
-    
-                        postInfoElement.appendChild(postSmall);
-                        innerPostElement.appendChild(postInfoElement);
-                        postElement.appendChild(innerPostElement);
-            
-                        
-                        postElement.classList.add('post-container-donations'); 
-                        innerPostElement.classList.add('post');
-                        postInfoElement.classList.add('post-info');
-        
-                        document.getElementById('post-container').appendChild(innerPostElement);
-
-                        //div for buttons
-                        const buttonDiv=  document.createElement('div');
-                        buttonDiv.classList.add('btnDiv');
-
-                        //creating delete button 
-                        const deleteButton = document.createElement('button');
-
-                        // Create the trash icon element
-                        const icon = document.createElement('i');
-                        icon.classList.add('fas', 'fa-trash-alt');  // Add the icon classes
-
-                        // Append the icon to the delete button
-                        deleteButton.appendChild(icon);
-                        deleteButton.classList.add('deleteButton');
-                        deleteButton.onclick = () => deleteDonation(post.donationID);
-
-                        // Adding status from db
-                        const currentStatus= `${post.itemStatus}`;
-                        buttonDiv.appendChild(deleteButton);
-                        
-                        if( currentStatus== 'Available'){
-                        const markUnavailableButton = document.createElement('button');
-                        markUnavailableButton.textContent = 'Mark as Unavailable';
-                        markUnavailableButton.classList.add('updateButton');
-                        markUnavailableButton.onclick = () => markDonationUnavailable(post.donationID);
-                        buttonDiv.appendChild(markUnavailableButton);
-                    }
-                        innerPostElement.appendChild(buttonDiv);
-
-                    });
-                }
-                }
-                catch(error){
-                    console.error('Error loading all donations post entries:', error);
-                }
-            }
-            
-            async function showRelatedMissingPosts(){
-                console.log("Loading user related missing pet posts...");
-                    try{
-                        
-                    const response = await fetch('http://localhost:3000/showRelatedMissingPosts');
-                    
-                    if(!response.ok){
-                        console.log("Received response:", response.status); // Log the response status
-                        throw new Error( 'Failed to fetch related user missing posts.')
-                    }
-
-                    const missingPosts= await response.json();
-                    console.log("Missing Pet Posts data:", missingPosts);
-                    
-                    //creating GUI
-                    const missingPostsList = document.getElementById('post-container-missing');
-                    if (!missingPostsList) {
-                    console.error("Element with ID 'post-container-missing' not found."); // Log if the element is not found
-                    return;}
-
-                    missingPostsList.innerHTML = ''; // Clear the list before adding new items
-
-                    if (missingPosts.length === 0) {
-                        /*missingPostsList.textContent = 'No missing pet entries.';
-                        const textDisplay= document.createElement('p');
-                        textDisplay.textContent= 'You have no current missing pet posts';
-                        document.getElementById('post-container-missing').appendChild(textDisplay);*/
-                        console.log('No related missing pet posts for this user');
-                    } else {
-                        const missingTitle= document.createElement('h3');
-                        missingTitle.textContent= 'Your Current Missing Posts';
-                        document.getElementById('relatedHeading-Missing').appendChild(missingTitle);
-                    
-                        missingPosts.forEach(post => {
-                    
-                        //new div for post 
-                        const postElement = document.createElement('div');
-
- 
-                        //new div for post
-                        const innerPostElement = document.createElement('div');
-
-                        const pathFolder="projectImages/"
-                    
-                        //pulling animal image
-                        const postImg= document.createElement('img');
-                        postImg.src=pathFolder + `${post.animal_image_path}`;
-
-                        console.log(postImg)
-                        //creating div to hold a post
-                        const postInfoElement = document.createElement('div');
-                
-                        //creating header element that holds pet name
-                        const postHeader = document.createElement('h3');
-                        postHeader.textContent = `${post.petName}`;
-                        console.log(postHeader);
-
-                        //creating element for lostID
-                        const lostIdHeader= document.createElement('h4');
-                        lostIdHeader.textContent = `Pet ID: ${post.lostID}`;
-                        console.log(lostIdHeader);
-                    
-                        //cleaning up date lost data from JSON
-                        const dateLost=new Date(post.dateLost).toLocaleDateString("en-US",dateFormat);
-                        console.log(dateLost);
-                    
-                        //creating a paragraph element that holds date of when the pet was lost 
-                        const postParagraph = document.createElement('p');
-                        postParagraph.textContent=`Date Missing: ${dateLost}`;
-                        console.log(postParagraph);
-
-                        //cleaning up date created data from JSON
-                        const dateCreated=new Date(post.dateCreated).toLocaleDateString("en-US",dateFormat);
-                        console.log(dateLost);
-
-                        //creating a small element that holds the date when the post was created
-                        const postSmall = document.createElement('small');
-                        postSmall.textContent = `Date Posted: ${dateCreated}`;
-                        console.log(postSmall);
-                    
-                        // Adding all elements to front end by nesting the divs
-
-                        innerPostElement.appendChild(postImg); // image goes first and within post
-
-                        postInfoElement.appendChild(postHeader); // then header and within post-info
-                        innerPostElement.appendChild(postInfoElement);
-
-                        postInfoElement.appendChild(lostIdHeader); // lostid
-
-                        postInfoElement.appendChild(postParagraph); // last dates and within post-info
-                        innerPostElement.appendChild(postInfoElement);
-
-                        postInfoElement.appendChild(postSmall);
-                        innerPostElement.appendChild(postInfoElement);
-
-                        postElement.appendChild(innerPostElement);
-        
-                        //have to confirm these css ids/classes
-                        postElement.classList.add('post-container-missing'); 
-                        innerPostElement.classList.add('post');
-                        postInfoElement.classList.add('post-info');
-
-                        document.getElementById('post-container-missing').appendChild(innerPostElement);
-                        innerPostElement.addEventListener('click',function(){
-                        lostPetID=post.lostID;
-                        console.log(post.lostID);
-                        
-                        
-                        console.log(lostPetID);
-                        sendPostID();
-                        async function sendPostID(lostPetID) {
-                try {
-                    const response = await fetch(`http://localhost:3000/selectedPost/${lostPetID}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        
-                    });
-                    const result = await response.json();
-                
-                } catch (error) {
-                    console.error('Error fetching selected post ID to next page:', error);
-                    return null;
-                }
-            }
-            window.location.href = `selectedPost.html?postID=${lostPetID}`;
-
-                    });             
-
-                    }); 
-                }
-                    }
-                    catch(error){
-                        console.error('Error loading all related missing post entries for this user:', error);
-                    }
-      
-            }
-            async function showRelatedFoundPosts(){
-                console.log("Loading user related found pet posts...");
-                try{
-                    console.log('progress 2');
-                    const response = await fetch('http://localhost:3000/showRelatedFoundPosts');
-                    
-                    if(!response.ok){
-                       console.log("Received response:", response.status); // Log the response status
-                       throw new Error( 'Failed to fetch related user found posts.');
-                    }
-
-                    const foundPosts= await response.json();
-                    console.log("Found Pet Posts data:", foundPosts);
-                    
-                    //creating GUI
-                    const foundPostsList = document.getElementById('post-container-found');
-                    if (!foundPostsList) {
-                        console.error("Element with ID 'post-container-found' not found."); // Log if the element is not found
-                        return;}
-
-                    foundPostsList.innerHTML = ''; // Clear the list before adding new items
-
-
-                    if (foundPosts.length === 0) {
-                        /*foundPostsList.textContent = 'No found pet entries.';
-                        const textDisplay= document.createElement('p');
-                        textDisplay.textContent= 'You have no current found pet posts';
-                        document.getElementById('post-container-found').appendChild(textDisplay);*/
-                        console.log('No related found pet posts for this user');
-                    } else {
-                        const foundTitle= document.createElement('h3');
-                        foundTitle.textContent= 'Your Found Posts';
-                        document.getElementById('relatedHeading-Found').appendChild(foundTitle);
-
-                        foundPosts.forEach(post => {
-                        //new div for post 
-                        const postElement = document.createElement('div');
-     
-                        //new div for post
-                        const innerPostElement = document.createElement('div');
-
-                        const pathFolder="projectImages/"
-                        
-                        //take in image
-                        const postImg= document.createElement('img');
-                        postImg.src=pathFolder + `${post.animal_image_path}`;
-    
-                        console.log(postImg)
-                        //creating div to hold a post
-                        const postInfoElement = document.createElement('div');
-                    
-                        //creating header element that holds pet name
-                        const postHeader = document.createElement('h3');
-                        postHeader.textContent = `${post.petName}`;
-                        console.log(postHeader);
-
-
-                        //creating element for FoundID
-                        const foundIdHeader= document.createElement('h4');
-                        foundIdHeader.textContent = `Found Pet ID: ${post.foundID}`;
-                        console.log(foundIdHeader);
-                        
-                        //cleaning up date lost data from JSON
-                        const dateFound=new Date(post.dateFound).toLocaleDateString("en-US",dateFormat);
-                        console.log(dateFound);
-                        
-                        //creating a paragraph element that holds date of when the pet was lost 
-                        const postParagraph = document.createElement('p');
-                        postParagraph.textContent=`Date Found: ${dateFound}`;
-                        console.log(postParagraph);
-  
-    
-                        //creating a small element that holds the status when the post was created
-                        const postSmall = document.createElement('small');
-                        postSmall.textContent = `Status: ${post.status}`;
-                        console.log(postSmall);
-                        
-                        // Adding all elements to front end by nesting the divs
-    
-                        innerPostElement.appendChild(postImg); // image goes first and within post
-    
-                        postInfoElement.appendChild(postHeader); // then header and within post-info
-                        innerPostElement.appendChild(postInfoElement);
-                        postInfoElement.appendChild(foundIdHeader); // then header and within post-info
-    
-                        postInfoElement.appendChild(postParagraph); // last dates and within post-info
-                        innerPostElement.appendChild(postInfoElement);
-    
-                        postInfoElement.appendChild(postSmall);
-                        innerPostElement.appendChild(postInfoElement);
-    
-                        postElement.appendChild(innerPostElement);
-            
-                        postElement.classList.add('post-container-found'); 
-                        innerPostElement.classList.add('post');
-                        postInfoElement.classList.add('post-info');
-        
-                        document.getElementById('post-container-found').appendChild(innerPostElement);
-                    })
-                }; 
-
-                }
-                catch(error){
-                    console.error('Error loading all related Found post entries for this user:', error);
-
-                    
-                }
-            }
-        }
-        );
-
+       
         // Function to delete a donation
         async function deleteDonation(postID) {
             try {
@@ -769,7 +160,6 @@
                 console.error("Error updating post:", error);
             }
         }
-
 
     </script>
 </body>

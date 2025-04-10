@@ -9,54 +9,36 @@
 </head>
 <body>
     <!-- Top Navigation Bar -->
-    <!--each icon on navigation bar should take you to respectable page-->
-    <div class="navbar" id="myNavbar" >
-        <!-- Logo -->
-        <img src="projectImages/logo.png" alt="Logo" title="Logo of Application" height="100px">
-        
-        <!-- Navigation Links -->
-        <!--each link references another html page-->
+    <div class="navbar" id="myNavbar" >     
         <div class="nav-links" id="navLinks">
-            <!-- <a href="mainpage.html"><i class="fa fa-fw fa-home"></i> Home</a> 
-            <div class="dropdown">
-                <button class="dropbtn">Posts 
-                  <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="missingPetPost.html"><i class="fa-solid fa-paw"></i> Missing pets</a> 
-                    <a href="ReunitedPets.html"><i class="fa-solid fa-paw"></i> Reunited pets</a>       
-                </div>
-              </div> 
-            <a href="donationPostPage.html"><i class="fa-solid fa-box"></i> Donations</a> 
-            <a href="login&signup.html"><i class="fa-solid fa-right-to-bracket"></i> login </a> 
-             -->
+            <div class="container">
+                <a href="mainpage.html"><i class="fa fa-fw fa-home"></i> Home</a>
+                <a href="userpage.html"><i class="fa-solid fa-circle-user"></i> Account Profile</a>
+                <a href="#" id="signOut"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>        
+            </div>            
         </div>
-        <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
     </div>
 
-    <!--<div class = "website-name">
-        <h1>Pet WRU</h1>
-    </div>-->
+    <!-- List of Available Tables -->
+    <h2>List of Available Tabless</h2>
+    <div id="table-list"></div> <!-- This will be populated with tables-->
+
 
     <div class="container">
-        <img src="projectImages/homepage drw.jpeg" alt="illustration" class="left-image">
         <!-- Add request to report missing pet Form -->
          <div class="text-content">
-            <h1>Need help finding a missing pet? </h1>
-            <h2>Create a flyer and post it on our website <br>
-            by clicking the "report" button below</h2>
-            
-            <button id="reportButton" type="button">Report Missing Pet</button>            
+            <h1>Reserve a Table </h1>
+             <!--- Load Available Tables Here-->        
+             
+             
+
          </div>
     </div>
 
     <footer>
         <div class="footer-links">
-            <a href="aboutUs.html">About us</a>
-            <a href="resources.html">Resources</a>
-            <a href="https://github.com/jennefercampoverde/Pet-WRU.git">GitHub</a>
+            <a href="https://github.com/EthanPortelli/Restaurant-Reservation">GitHub</a>
         </div>
-        <p class="copyright">&copy; 2025 Pet WRU. All rights reserved.</p>
     </footer>
 
     <script>
@@ -76,155 +58,107 @@
                 }
             }
 
-            async function loginNavbar() {
-                try {
-                    const userID = await getUserID();
-                    let navLinks = document.getElementById("navLinks");
-
-                    if (!navLinks) {
-                        console.error("Error: navLinks not found in DOM.");
-                        return;
-                    }
-
-                    // Update navbar dynamically based on login status
-                    navLinks.innerHTML = userID
-                        ? `
-                            <a href="mainpage.html"><i class="fa fa-fw fa-home"></i> Home</a>
-                            <div class="dropdown">
-                                <button class="dropbtn">Posts 
-                                    <i class="fa fa-caret-down"></i>
-                                </button>
-                                <div class="dropdown-content">
-                                    <a href="createFlier.html"><i class="fa-solid fa-file-pen"></i> Report Missing pet</a>
-                                    <a href="missingPetPost.html" class="auth-link"><i class="fa-solid fa-paw"></i> Missing pets</a>
-                                    <a href="ReunitedPets.html" class="auth-link"><i class="fa-solid fa-paw"></i> Reunited pets</a>        
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <button class="dropbtn">Donations 
-                                    <i class="fa fa-caret-down"></i>
-                                </button>
-                                <div class="dropdown-content">
-                                    <a href="createDonation.html" class="auth-link"><i class="fa-solid fa-box"></i> Donate Today</a>
-                                    <a href="donationPostPage.html" class="auth-link"><i class="fa-solid fa-box"></i> Donations</a>        
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <button class="dropbtn">Account 
-                                    <i class="fa fa-caret-down"></i>
-                                </button>
-                                <div class="dropdown-content">
-                                    <a href="userpage.html"><i class="fa-solid fa-circle-user"></i> Account Profile</a>
-                                    <a href="#" id="signOut"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>        
-                                </div>
-                            </div>`
-                        : `
-                            <a href="mainpage.html"><i class="fa fa-fw fa-home"></i> Home</a>
-                            <div class="dropdown">
-                                <button class="dropbtn">Posts 
-                                    <i class="fa fa-caret-down"></i>
-                                </button>
-                                <div class="dropdown-content">
-                                    <a href="createFlier.html"><i class="fa-solid fa-file-pen"></i> Report Missing pet</a>
-                                    <a href="missingPetPost.html" class="auth-link"><i class="fa-solid fa-paw"></i> Missing pets</a>
-                                    <a href="ReunitedPets.html" class="auth-link"><i class="fa-solid fa-paw"></i> Reunited pets</a>        
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <button class="dropbtn">Donations 
-                                    <i class="fa fa-caret-down"></i>
-                                </button>
-                                <div class="dropdown-content">
-                                    <a href="createDonation.html" class="auth-link"><i class="fa-solid fa-box"></i> Donate Today</a>
-                                    <a href="donationPostPage.html" class="auth-link"><i class="fa-solid fa-box"></i> Donations</a>        
-                                </div>
-                            </div>
-                            <a href="loginPage.html"><i class="fa-solid fa-right-to-bracket"></i> Login</a>`;
-
-                    // Now that navbar is updated, attach authentication checks & logout event
-                    applyAuthRedirects();
-                    applyLogoutEvent();
-
-                    // Dynamic Active Link Highlighting
-                    document.querySelectorAll('.nav-links a').forEach(link => {
-                            if (link.href === window.location.href) {
-                                link.classList.add('active');
-                            } else {
-                                link.classList.remove('active');
-                            }
-                    });
-                    
-                    } catch (error) {
-                        console.error('Error updating navbar:', error);
-                    }
-            }
-
-            function applyAuthRedirects() {
-                async function handleAuthRedirect(event, page) {
-                    event.preventDefault();
-                    let userID = await getUserID();
-
-                    if (!userID) {
-                        alert("Please log in to access this page.");
-                        window.location.href = "loginPage.html";
-                    } else {
-                        window.location.href = page;
-                    }
-                }
-
-                document.querySelectorAll(".auth-link").forEach(link => {
-                    link.addEventListener("click", function (event) {
-                        handleAuthRedirect(event, link.getAttribute("href"));
-                    });
-                });
-            }
-
-            function applyLogoutEvent() {
-                const signOutButton = document.getElementById("signOut");
-
-                if (signOutButton) {
-                    signOutButton.addEventListener("click", async () => {
-                        try {
-                            await fetch('/logout', { method: 'POST' });
-                            sessionStorage.removeItem("userID"); // Clear cache
-                            window.location.href = 'loginPage.html'; // Redirect to login
-                        } catch (error) {
-                            console.error("Logout failed:", error);
-                        }
-                    });
-                } else {
-                    console.warn("Sign-out button not found in DOM.");
-                }
-            }
-
-            // Call function when page loads
-            await loginNavbar(); // Wait for navbar to be updated before applying event listeners
-
-            // Also apply to the "Report Missing Pet" button
-            let reportButton = document.getElementById("reportButton");
-            if (reportButton) {
-                reportButton.addEventListener("click", async function (event) {
-                    event.preventDefault();
-                    let userID = await getUserID();
-
-                    if (!userID) {
-                        alert("Please log in to report a missing pet.");
-                        window.location.href = "loginPage.html"; 
-                    } else {
-                        window.location.href = "createFlier.html"; 
-                    }
-                });
-            } else {
-                console.error("Error: reportButton not found in DOM.");
-            }
         });
 
-        // Responsive Navigation Toggle
-        function myFunction() {
-            let navbar = document.getElementById("navLinks");
-            navbar.classList.toggle("responsive");
+        // sign out
+        document.addEventListener("DOMContentLoaded", () => {
+            const signOutButton = document.getElementById("signOut");
+
+            if (signOutButton) {
+                signOutButton.addEventListener("click", async (event) => {
+                    event.preventDefault(); // Prevent default link behavior
+
+                    try {
+                        await fetch('/logout', { method: 'POST' });
+                        sessionStorage.removeItem("userID"); // Clear cache
+                        window.location.href = 'loginPage.html'; // Redirect to login
+                    } catch (error) {
+                        console.error("Logout failed:", error);
+                    }
+                });
+            }
+
+            //LOAD TABLES LIST FUNCTION
+            if (document.getElementById('table-list')) {
+                console.log("Table list element found. Calling loadUsers()...");
+                loadTables(); // Load tables when the page is ready
+            } else {
+                console.error("Table list element not found in the DOM."); // Log if the table list is missing
+            }
+
+
+        });
+
+        // LOAD TABLES LIST FUNCTION
+        async function loadTables() {
+            console.log("Loading users..."); // Start log
+            try {
+                const response = await fetch('http://localhost:3000/getTables');
+                console.log("Received response:", response.status); // Log the response status
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch table data');
+                }
+
+                const users = await response.json();
+                console.log("User data:", users); // Log the user data received
+
+                const userList = document.getElementById('table-list');
+                if (!userList) {
+                    console.error("Element with ID 'user-list' not found."); // Log if the element is not found
+                    return;
+                }
+                userList.innerHTML = ''; // Clear the list before adding new users
+
+                if (users.length === 0) {
+                    userList.textContent = 'No tables in table data.';
+                } else {
+                    users.forEach(user => {
+                        const userElement = document.createElement('div');
+                        userElement.classList.add('user-data');
+                        userElement.textContent = `Table ID: ${user.tableID} \n - Table Status: ${user.tableStatus}`;
+                        
+                        //Create a delete button
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.classList.add('delete-button');
+                        deleteButton.onclick = () => deleteUser(user.id); // Add click event for deleting user
+                        userElement.appendChild(deleteButton);
+                        
+                    
+                        userList.appendChild(userElement);
+                        console.log("User added:", userElement); // Log each user added to the list
+                        
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading users:', error);
+            }
         }
 
+        async function deleteUser(userId) {
+            console.log(`Attempting to delete user with ID: ${userId}`); // Added for Debugging
+
+            if (confirm('Are you sure you want to delete this user?')) {
+                try {
+                    const response = await fetch(`http://localhost:3000/delete-user/${userId}`, {
+                        method: 'DELETE'
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        alert(result.message || 'User deleted successfully!');
+                        loadUsers(); // Refresh the user list
+                    } else {
+                        alert(result.error || 'Failed to delete user.');
+                    }
+                } catch (error) {
+                    console.error('Error deleting user:', error);
+                    alert('An error occurred while deleting the user.');
+                }
+            }
+        }
 
 
     </script>

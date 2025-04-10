@@ -30,7 +30,7 @@ app.use(Routes);
 
 // Serve the main HTML page
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'mainpage.html'));
+    res.sendFile(path.join(__dirname, 'loginPage.html'));
 });
 
 // Start the server

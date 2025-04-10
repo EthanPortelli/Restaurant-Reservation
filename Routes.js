@@ -26,11 +26,17 @@ const storagePet = multer.diskStorage({
 const uploadPet = multer({ storage: storagePet });
 
 
-// API Routes
+// API Routes for this Project
 router.post("/login", Controller.login);
 router.post("/logout", Controller.logout);
 router.post("/register", Controller.register);
 router.get("/getUserID", Controller.getUserID);
+router.get("/getUserInfo", Controller.getUserInfo);
+router.get("/getTables", Controller.getTables);
+
+
+
+//Not being used in this project
 router.post("/editUsername", Controller.editUsername);
 router.post("/editPassword", Controller.editPassword);
 router.post("/editEmail", Controller.editEmail);
@@ -53,18 +59,9 @@ router.get("/showRelatedMissingPosts", Controller.showRelatedMissingPosts);
 router.get("/showRelatedFoundPosts", Controller.showRelatedFoundPosts);
 router.delete("/deleteDonation/:donationID", Controller.deleteDonation);
 router.post("/updateDonation/:donationID", Controller.updateDonation);
-router.get("/getUserInfo", Controller.getUserInfo);
-
-
 router.get("/searchBarMissing/:lostID",Controller.searchBarMissing);
 router.get("/searchBarFound/:foundID",Controller.searchBarFound);
 router.get("/reunitedFilter/:userOption", Controller. reunitedFilter);
-
-
-
-
-
-
 router.get("/filterDonations/",Controller.filterDonations);  // when calling use the format: /filterDonations?category=XXX&condition=YYY&sortBy=ZZZ
                                                             // XXX , YYY, and ZZZ should be replaced with an actual value (e.g., Bedding, New, oldest, etc.)
 /*
