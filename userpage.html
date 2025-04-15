@@ -26,7 +26,6 @@
         <div id="UserHeading">
         </div>
         <div id="userInformation" class="userInformation">
-            
         </div>
         
     </section>
@@ -56,37 +55,37 @@
                     if (data.length > 0) {
                         const user = data[0];
 
-                    //create welcome page headear
-                    const headerDiv= document.getElementById("UserHeading");
-                    
-                    const welcomeHeader = document.createElement('h1');
-                    welcomeHeader.textContent = `Account Information`;
-                    welcomeHeader.classList.add('UserHeading');
-                    headerDiv.appendChild(welcomeHeader);
+                        //create welcome page headear
+                        const headerDiv= document.getElementById("UserHeading");
+                        
+                        const welcomeHeader = document.createElement('h1');
+                        welcomeHeader.textContent = `Account Information`;
+                        welcomeHeader.classList.add('UserHeading');
+                        headerDiv.appendChild(welcomeHeader);
 
-                    // Display current user info from database
+                        // Display current user info from database
 
-                    const infoDiv= document.getElementById("userInformation");
+                        const infoDiv= document.getElementById("userInformation");
 
-                    //creating username text
-                    const textUsername = document.createElement('strong');
-                    textUsername.textContent = `Current Username: `;
-                    infoDiv.appendChild(textUsername);
+                        //creating username text
+                        const textUsername = document.createElement('strong');
+                        textUsername.textContent = `Current Username: `;
+                        infoDiv.appendChild(textUsername);
 
-                    //Adding userName
-                    const infoUsername = document.createElement('p');
-                    infoUsername.textContent = `${user.userName}`;
-                    infoDiv.appendChild(infoUsername);
+                        //Adding userName
+                        const infoUsername = document.createElement('p');
+                        infoUsername.textContent = `${user.userName}`;
+                        infoDiv.appendChild(infoUsername);
 
-                    //creating Reservations text
-                    const textCity = document.createElement('strong');
-                    textCity.textContent = `Current Reservations: `;
-                    infoDiv.appendChild(textCity);
+                        //creating Reservations text
+                        const textCity = document.createElement('strong');
+                        textCity.textContent = `Current Reservations: `;
+                        infoDiv.appendChild(textCity);
 
-                    //Adding Reservations 
-                    const infoCity = document.createElement('p');
-                    infoCity.textContent = `${user.city}`;
-                    infoDiv.appendChild(infoCity);
+                        //Adding Reservations 
+                        const infoCity = document.createElement('p');
+                        infoCity.textContent = `${user.city}`;
+                        infoDiv.appendChild(infoCity);
 
 
                         } else {
@@ -119,35 +118,14 @@
         });
 
 
-       
-        // Function to delete a donation
-        async function deleteDonation(postID) {
+        // Function to cancel a reservation
+        async function cancelReservation(reservationID) {
             try {
-                const response = await fetch(`http://localhost:3000/deleteDonation/${postID}`, {
-                    method: "DELETE",
-                });
-
-                if (response.ok) {
-                    alert("Post deleted successfully.");
-                    window.location.reload(); //refresh page 
-                } else {
-                    alert("Failed to delete post.");
-                }
-            } catch (error) {
-                console.error("Error deleting post:", error);
-            }
-        }
-
-        // Function to mark a donation as unavailable
-        async function markDonationUnavailable(postID) {
-            try {
-                const response = await fetch(`http://localhost:3000/updateDonation/${postID}`, {
-                method: 'POST', 
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ status: 'Claimed' }),
-            });
+                const response = await fetch(`http://localhost:3000/cancelReservation`, {
+                        method: 'POST',
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ reservationID })
+                    });
 
                 if (response.ok) {
                     alert("Post updated successfully.");
