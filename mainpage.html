@@ -127,8 +127,6 @@
         }
 
         async function reserveTable(tableID) {
-            console.log(`Attempting to reserve table with ID: ${tableID}`); // Added for Debugging
-
             if (confirm('Are you sure you want to reserve this table?')) {
                 try {
                     const response = await fetch(`http://localhost:3000/reserveTable`, {
