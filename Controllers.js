@@ -187,7 +187,7 @@ exports.reserveTable = async (req, res) => {
 
 // Route to cancel a reservation
 exports.cancelReservation = async (req, res) => {
-    const { reservationID } = req.body;
+    const { reservationID, tableID } = req.body;
 
     try {
         const conn = await pool.getConnection();
@@ -199,47 +199,27 @@ exports.cancelReservation = async (req, res) => {
             return res.status(401).json({ error: "Unauthorized. Please log in." });
         }
 
-        //Check that reservation exists
+        //Check that the reservation exists 
         const [rows] = await conn.query("SELECT * FROM Reservations WHERE reservationID = ?", [reservationID]);
         if (rows.length === 0) {
             conn.release();
             return res.status(404).json({ error: "Reservation not found" });
         }
-                
-
-        //Change the table status to "Available"
-
-        //Remove the reservation from the database
         
-    
-        // Update the table status in the database
-        const tableStatus = "Claimed";
-        const result1 = await conn.query("UPDATE Tables SET tableStatus = ? WHERE tableID = ?", [tableStatus, tableID]);
-        if (result1.affectedRows === 0) {
-            return res.status(400).json({ error: "No changes made to the database" });
-        }
-        
-        // Record the table reservation in the database
-        const result2 = await conn.query("INSERT INTO Reservations (userID, tableID) VALUES (?, ?)", [userID, tableID]);
-        if (result2.affectedRows === 0) {
-            return res.status(400).json({ error: "No changes made to the database" });
-        }
+        // Change the table status to "Available"
+        await conn.query("UPDATE Tables SET tableStatus = 'Available' WHERE tableID = ?", [tableID]);
 
-        //Get the reservation ID to ensure it worked
-        const result3 = await conn.query("SELECT * FROM Reservations WHERE userID = ? AND tableID = ?", [userID, tableID]);
-        if (result3.affectedRows === 0) {
-            return res.status(400).json({ error: "No changes made to the database" });
-        }
+        // Remove the reservation from the database
+        await conn.query("DELETE FROM Reservations WHERE reservationID = ?", [reservationID]);
 
         conn.release();
 
-        console.log(`Status updated for table: ${tableID}`);
-        console.log(`Reservation created for user: ${userID}`);
-        res.json({ message: 'Table reserved successfully!', success: true });        
+        console.log(`Reservation ${reservationID} cancelled for user: ${userID}`);
+        res.json({ message: 'Reservation cancelled successfully!', success: true });
 
     } catch (err) {
         console.error("Database error:", err);
-        res.status(500).json({ error: 'Database error when reserving a table' });
+        res.status(500).json({ error: 'Database error when cancelling the reservation' });
     }
 };
 

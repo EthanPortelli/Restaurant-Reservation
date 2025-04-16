@@ -42,62 +42,26 @@
     </section>
 
     <script>
-        //load current user info
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch('/getUserInfo')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch user information');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.length > 0) {
-                        const user = data[0];
+        async function getUserID() {
+            try {
+                const response = await fetch('/getUserID');
+                const data = await response.json();                
+                return data.userID; // Return user ID or null
+            } catch (error) {
+                console.error('Error fetching user ID:', error);
+                return null;
+            }
+        }
 
-                        //create welcome page headear
-                        const headerDiv= document.getElementById("UserHeading");
-                        
-                        const welcomeHeader = document.createElement('h1');
-                        welcomeHeader.textContent = `Account Information`;
-                        welcomeHeader.classList.add('UserHeading');
-                        headerDiv.appendChild(welcomeHeader);
-
-                        // Display current user info from database
-
-                        const infoDiv= document.getElementById("userInformation");
-
-                        //creating username text
-                        const textUsername = document.createElement('strong');
-                        textUsername.textContent = `Current Username: `;
-                        infoDiv.appendChild(textUsername);
-
-                        //Adding userName
-                        const infoUsername = document.createElement('p');
-                        infoUsername.textContent = `${user.userName}`;
-                        infoDiv.appendChild(infoUsername);
-
-                        //creating Reservations text
-                        const textCity = document.createElement('strong');
-                        textCity.textContent = `Current Reservations: `;
-                        infoDiv.appendChild(textCity);
-
-                        //Adding Reservations 
-                        const infoCity = document.createElement('p');
-                        infoCity.textContent = `${user.city}`;
-                        infoDiv.appendChild(infoCity);
-
-
-                        } else {
-                        console.error('No user data found.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+        // redirect if not logged  in
+        document.addEventListener("DOMContentLoaded", async () => {
+            const data = await getUserID();
+            // If the response is null or userID is null, redirect to login page
+            if (!data ) {
+                    window.location.href = '/loginPage.html';  // Adjust the path as needed
+            }
         });
 
- 
         // sign out
         document.addEventListener("DOMContentLoaded", () => {
             const signOutButton = document.getElementById("signOut");
@@ -117,27 +81,101 @@
             }
         });
 
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/getUserInfo')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch user information');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const userInfo = data[0];  // First array: user data
+                    const reservations = data[1];  // Second array: reservations
+
+                    if (userInfo && reservations) {
+                        const user = userInfo[0];  // Since it's a nested array, user data is inside the first array
+
+                        // Create welcome page header
+                        const headerDiv = document.getElementById("UserHeading");
+                        const welcomeHeader = document.createElement('h1');
+                        welcomeHeader.textContent = `Account Information`;
+                        welcomeHeader.classList.add('UserHeading');
+                        headerDiv.appendChild(welcomeHeader);
+
+                        // Display current user info
+                        const infoDiv = document.getElementById("userInformation");
+
+                        const textUsername = document.createElement('strong');
+                        textUsername.textContent = `Current Username: `;
+                        infoDiv.appendChild(textUsername);
+
+                        const infoUsername = document.createElement('p');
+                        infoUsername.textContent = user.userName;
+                        infoDiv.appendChild(infoUsername);
+
+                        // Add reservations section
+                        const textReservations = document.createElement('strong');
+                        textReservations.textContent = `Current Reservations: `;
+                        infoDiv.appendChild(textReservations);
+
+                        const reservationList = document.createElement('ul');
+
+                        if (reservations.length > 0) {
+                            reservations.forEach(res => {
+                                if (res.reservationID) {
+                                    const item = document.createElement('li');
+                                    item.textContent = `Reservation #${res.reservationID} - Table ${res.tableID} `;
+
+                                    // Create cancel button for each reservation
+                                    const cancelButton = document.createElement('button');
+                                    cancelButton.textContent = 'Cancel Reservation';
+                                    cancelButton.classList.add('cancel-button');
+                                    cancelButton.onclick = () => cancelReservation(res.reservationID, res.tableID); 
+
+                                    item.appendChild(cancelButton);
+
+                                    reservationList.appendChild(item);
+
+                                }
+                            });
+                        } else {
+                            const noReservations = document.createElement('p');
+                            noReservations.textContent = "No reservations found.";
+                            infoDiv.appendChild(noReservations);
+                        }
+
+                        infoDiv.appendChild(reservationList);
+                    } else {
+                        console.error('No user data found.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
 
         // Function to cancel a reservation
-        async function cancelReservation(reservationID) {
-            try {
-                const response = await fetch(`http://localhost:3000/cancelReservation`, {
-                        method: 'POST',
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ reservationID })
-                    });
+        async function cancelReservation(reservationID, tableID) {
+            if (confirm('Are you sure you want to reserve this table?')) {
+                try {
+                    const response = await fetch(`http://localhost:3000/cancelReservation`, {
+                            method: 'POST',
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ reservationID, tableID })
+                        });
 
-                if (response.ok) {
-                    alert("Post updated successfully.");
-                    window.location.reload(); //refresh page 
-                } else {
-                    alert("Failed to update post.");
+                    if (response.ok) {
+                        alert("Reservation cancelled successfully.");
+                        window.location.reload(); //refresh page 
+                    } else {
+                        alert("Failed to update post.");
+                    }
+                } catch (error) {
+                    console.error("Error updating post:", error);
                 }
-            } catch (error) {
-                console.error("Error updating post:", error);
             }
         }
-
     </script>
 </body>
 </html>
