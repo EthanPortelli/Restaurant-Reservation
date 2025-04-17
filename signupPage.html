@@ -9,46 +9,21 @@
 
 </head>
 <body>
-	<!-- Top Navigation Bar -->
-    <div class="navbar">
-        
-        <!-- Navigation Links -->
-        <div class="nav-links" id="navLinks">
-        </div>
+    <div class="signup">
+        <h3> Please create an account: </h3>
+        <form id="signupForm">
+            <label for="signupUsername">Username: </label><br>
+            <input type="text" id="signupUsername" required><br><br>
+
+            <label for="signupPassword">Password (4 characters min):</label><br>
+            <input type="password" id="signupPassword" minlength="4" required><br><br>
+
+            <button type="submit">Register</button>
+        </form>
+        <button onclick="window.location.href='loginPage.html'" style="margin-top: 50px;">Already have an account? Login here</button>        
     </div>
-	<h1 id="PageHeading"> Please create an account. </h1>
-        <section>
-		    <form id="signupForm">
-                <div class ='postSignup'>
-                    <div class='parent'>
-                        <h3> Sign Up: </h3>
-                        <div class ='child' Signup1>
-                            <label for="signupUsername">Username: </label><br>
-                            <input type="text" id="signupUsername" required><br><br>
-
-                            <label for="signupPassword">Password (4 characters min): </label><br>
-                            <input type="password" id="signupPassword" minlength="4" required><br><br>
-                        </div>
-                    </div>
-                    <div class="signupSubmit">
-                        <button type="submit">Create Account</button>
-                    </div>
-                    <button onclick="window.location.href='loginPage.html'" style="margin-top: 50px;">Already have an account? Login here</button>        
-
-                </div>    
-            </form>
-        </section>   
-    <script>
-
-        // Responsive Navigation Toggle
-        function myFunction() {
-            let navbar = document.getElementById("navLinks");
-            navbar.classList.toggle("responsive");
-        }
-
-        
-
-    
+            
+    <script>      
     // Signup Form Submission
     document.getElementById("signupForm").addEventListener("submit", async function(event) {
         event.preventDefault(); // Prevent page reload
@@ -56,8 +31,6 @@
         // Capture input values
         const UserName = document.getElementById("signupUsername").value.trim();
         const userPassword = document.getElementById("signupPassword").value.trim();
-            
-        
 
         try {
             // Send a POST request to the backend registration route

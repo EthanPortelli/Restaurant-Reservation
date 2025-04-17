@@ -8,10 +8,8 @@
     <script src="https://kit.fontawesome.com/2e1a459034.js" crossorigin="anonymous"></script>
 </head>
 <body>
-	<!-- Top Navigation Bar -->
+	<!-- Navigation Bar -->
     <div class="navbar" id="myNavbar" >
-       
-        <!-- Navigation Links -->
         <div class="nav-links" id="navLinks">
             <div class="container">
                 <a href="mainpage.html"><i class="fa fa-fw fa-home"></i> Home</a>
@@ -21,27 +19,22 @@
         </div>
     </div >
 	
-	
     <section id="account-info">
         <div id="UserHeading">
         </div>
         <div id="userInformation" class="userInformation">
         </div>
-        
     </section>
 
-    
-    <section>
-        
-        <footer>
-            <div class="footer-links">
-                <a href="https://github.com/EthanPortelli/Restaurant-Reservation">GitHub</a>
-            </div>
-        </footer>
-        
-    </section>
+    <footer>
+        <div class="footer-links">
+            <br>
+            <a href="https://github.com/EthanPortelli/Restaurant-Reservation">GitHub</a>
+        </div>
+    </footer>
 
     <script>
+        // get ID of logged in user
         async function getUserID() {
             try {
                 const response = await fetch('/getUserID');
@@ -53,6 +46,7 @@
             }
         }
 
+
         // redirect if not logged  in
         document.addEventListener("DOMContentLoaded", async () => {
             const data = await getUserID();
@@ -61,6 +55,7 @@
                     window.location.href = '/loginPage.html';  // Adjust the path as needed
             }
         });
+
 
         // sign out
         document.addEventListener("DOMContentLoaded", () => {
@@ -81,6 +76,8 @@
             }
         });
 
+
+        // get user info on page load
         document.addEventListener('DOMContentLoaded', () => {
             fetch('/getUserInfo')
                 .then(response => {
@@ -154,6 +151,7 @@
                     console.error('Error:', error);
                 });
         });
+
 
         // Function to cancel a reservation
         async function cancelReservation(reservationID, tableID) {

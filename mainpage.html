@@ -8,7 +8,7 @@
     <script src="https://kit.fontawesome.com/2e1a459034.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- Top Navigation Bar -->
+    <!-- Navigation Bar -->
     <div class="navbar" id="myNavbar" >     
         <div class="nav-links" id="navLinks">
             <div class="container">
@@ -31,7 +31,7 @@
     </footer>
 
     <script>
-       
+        // get ID of logged in user
         async function getUserID() {
             try {
                 const response = await fetch('/getUserID');
@@ -43,6 +43,7 @@
             }
         }
 
+
         // redirect if not logged  in
         document.addEventListener("DOMContentLoaded", async () => {
             const data = await getUserID();
@@ -51,6 +52,7 @@
                     window.location.href = '/loginPage.html';  // Adjust the path as needed
             }
         });
+
 
         // sign out
         document.addEventListener("DOMContentLoaded", () => {
@@ -71,17 +73,19 @@
             }
         });
 
+
+        // load all tables on page load
         document.addEventListener("DOMContentLoaded", () => {
-            //LOAD TABLES LIST FUNCTION
             if (document.getElementById('table-list')) {
                 console.log("Table list element found. Calling loadTables()...");
-                loadTables(); // Load tables when the page is ready
+                loadTables(); 
             } else {
                 console.error("Table list element not found in the DOM."); // Log if the table list is missing
             }
         });
 
-        // LOAD TABLES LIST FUNCTION
+
+        // function to load tables
         async function loadTables() {
             console.log("Loading users..."); // Start log
             try {
@@ -129,6 +133,8 @@
             }
         }
 
+
+        // function to reserve a table
         async function reserveTable(tableID) {
             if (confirm('Are you sure you want to reserve this table?')) {
                 try {
@@ -142,7 +148,7 @@
 
                     if (response.ok) {
                         alert(result.message || 'Table reserved successfully!');
-                        loadTables(); // Refresh the user list
+                        loadTables(); // Refresh the table list
                     } else {
                         alert(result.error || 'Failed to reserve table.');
                     }
@@ -152,7 +158,6 @@
                 }
             }
         }
-
     </script>
 </body>
 </html>

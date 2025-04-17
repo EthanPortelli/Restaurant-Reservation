@@ -1,6 +1,7 @@
 const pool = require("./Database"); // Import the database connection
 const bcrypt = require('bcryptjs');
 
+
 // Route to check credentials at login
 exports.login = async (req, res) => {
     const { UserName, userPassword } = req.body;
@@ -184,7 +185,6 @@ exports.reserveTable = async (req, res) => {
 };
 
 
-
 // Route to cancel a reservation
 exports.cancelReservation = async (req, res) => {
     const { reservationID, tableID } = req.body;
@@ -222,4 +222,3 @@ exports.cancelReservation = async (req, res) => {
         res.status(500).json({ error: 'Database error when cancelling the reservation' });
     }
 };
-
