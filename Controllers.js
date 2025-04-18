@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 
 // Route to check credentials at login
 exports.login = async (req, res) => {
-    const { UserName, userPassword } = req.body;
+    const { UserName, userPassword } = req.body; // receive data from client
 
     try {
         const conn = await pool.getConnection();
@@ -17,7 +17,7 @@ exports.login = async (req, res) => {
             if (passwordMatch) {
                 // Store user ID in the session
                 req.session.userID = usersInfo.userID;
-                res.json({ ID: usersInfo.userID, success: true });
+                res.json({ ID: usersInfo.userID, success: true }); // send JSON response to client
 
             } else {
                 console.log(`Failed login attempt: ${UserName} (Invalid password)`);
@@ -38,20 +38,21 @@ exports.login = async (req, res) => {
 
 // Route to log out of the session
 exports.logout = async (req, res) => {
+    // received request from client
     req.session.destroy(err => {
         if (err) {
             console.error('Logout error:', err);
             return res.status(500).json({ error: 'Failed to logout' });
         }
         console.log('User logged out successfully.');
-        res.json({ message: 'Logout successful' });
+        res.json({ message: 'Logout successful' }); // send JSON response to client
     });
 };
 
 
 // Route to register an account with a hashed password
 exports.register = async (req, res) => {
-    const { UserName, userPassword } = req.body;
+    const { UserName, userPassword } = req.body; // receive data from client
 
     let hash;
     try {
@@ -76,7 +77,7 @@ exports.register = async (req, res) => {
         // Insert the new user into the database
         const result = await conn.query("INSERT INTO Users (userName, userPassword) VALUES (?, ?)", [UserName, hash]);
 
-        res.json({ message: 'Account created successfully!', success: true });
+        res.json({ message: 'Account created successfully!', success: true }); // send JSON response to client
         conn.release();
     } catch (err) {
         if (err.code === 'ER_DUP_ENTRY') {
@@ -90,16 +91,18 @@ exports.register = async (req, res) => {
 
 // Route to send server side stored ID to client side
 exports.getUserID = async (req, res) => {
+    // received request from client
     if (req.session.userID) {
-        return res.json({ userID: req.session.userID });
+        return res.json({ userID: req.session.userID }); // send JSON response to client
     } else {
-        return res.json({ userID: null });
+        return res.json({ userID: null }); // send JSON response to client
     }
 };
 
 
 // Route to get user information
 exports.getUserInfo = async (req, res) => {
+    // received request from client
     try {
         const userID = req.session.userID;
         const conn = await pool.getConnection();
@@ -107,7 +110,7 @@ exports.getUserInfo = async (req, res) => {
         const data2 = await conn.query("SELECT * FROM Reservations WHERE userID = ?", [userID]);
         const combinedData = [data1, data2];
 
-        res.json(combinedData);
+        res.json(combinedData); // send JSON response to client
         console.log(combinedData);
         conn.release();
     } catch (err) {
@@ -119,10 +122,11 @@ exports.getUserInfo = async (req, res) => {
 
 // Route to load all tables
 exports.getTables = async (req, res) => {
+    // received request from client
     try {
         const conn = await pool.getConnection();
         const rows = await conn.query("SELECT * FROM Tables ");
-        res.json(rows);
+        res.json(rows); // send JSON response to client
         conn.release();
     } catch (err) {
         console.error(err);
@@ -133,7 +137,7 @@ exports.getTables = async (req, res) => {
 
 // Route to reserve a table
 exports.reserveTable = async (req, res) => {
-    const { tableID } = req.body;
+    const { tableID } = req.body; // receive data from client
 
     try {
         const conn = await pool.getConnection();
@@ -176,7 +180,7 @@ exports.reserveTable = async (req, res) => {
 
         console.log(`Status updated for table: ${tableID}`);
         console.log(`Reservation created for user: ${userID}`);
-        res.json({ message: 'Table reserved successfully!', success: true });        
+        res.json({ message: 'Table reserved successfully!', success: true }); // send JSON response to client  
 
     } catch (err) {
         console.error("Database error:", err);
@@ -187,7 +191,7 @@ exports.reserveTable = async (req, res) => {
 
 // Route to cancel a reservation
 exports.cancelReservation = async (req, res) => {
-    const { reservationID, tableID } = req.body;
+    const { reservationID, tableID } = req.body; // receive data from client
 
     try {
         const conn = await pool.getConnection();
@@ -215,7 +219,7 @@ exports.cancelReservation = async (req, res) => {
         conn.release();
 
         console.log(`Reservation ${reservationID} cancelled for user: ${userID}`);
-        res.json({ message: 'Reservation cancelled successfully!', success: true });
+        res.json({ message: 'Reservation cancelled successfully!', success: true }); // send JSON response to client
 
     } catch (err) {
         console.error("Database error:", err);

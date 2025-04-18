@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>	</title>
 	<link rel="stylesheet" href="basic.css">
-    <script src="https://kit.fontawesome.com/2e1a459034.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<!-- Navigation Bar -->
@@ -50,9 +48,8 @@
         // redirect if not logged  in
         document.addEventListener("DOMContentLoaded", async () => {
             const data = await getUserID();
-            // If the response is null or userID is null, redirect to login page
             if (!data ) {
-                    window.location.href = '/loginPage.html';  // Adjust the path as needed
+                    window.location.href = '/loginPage.html'; 
             }
         });
 
@@ -79,16 +76,18 @@
 
         // get user info on page load
         document.addEventListener('DOMContentLoaded', () => {
+            // Send a GET request to the backend getUserInfo route
             fetch('/getUserInfo')
                 .then(response => {
+                    // Parse the JSON response from the server
                     if (!response.ok) {
                         throw new Error('Failed to fetch user information');
                     }
                     return response.json();
                 })
                 .then(data => {
-                    const userInfo = data[0];  // First array: user data
-                    const reservations = data[1];  // Second array: reservations
+                    const userInfo = data[0];  
+                    const reservations = data[1];  
 
                     if (userInfo && reservations) {
                         const user = userInfo[0];  // Since it's a nested array, user data is inside the first array
@@ -157,12 +156,14 @@
         async function cancelReservation(reservationID, tableID) {
             if (confirm('Are you sure you want to reserve this table?')) {
                 try {
+                    // Send a POST request to the backend getUserInfo route (I decided to use POST instead of DELETE)
                     const response = await fetch(`http://localhost:3000/cancelReservation`, {
-                            method: 'POST',
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ reservationID, tableID })
-                        });
-
+                        method: 'POST',
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ reservationID, tableID })
+                    });
+                    
+                    // Parse the JSON response from the server
                     if (response.ok) {
                         alert("Reservation cancelled successfully.");
                         window.location.reload(); //refresh page 

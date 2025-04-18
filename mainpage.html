@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="mainpageStyle.css">
-    <script src="https://kit.fontawesome.com/2e1a459034.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="basic.css">
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -47,9 +45,8 @@
         // redirect if not logged  in
         document.addEventListener("DOMContentLoaded", async () => {
             const data = await getUserID();
-            // If the response is null or userID is null, redirect to login page
             if (!data ) {
-                    window.location.href = '/loginPage.html';  // Adjust the path as needed
+                    window.location.href = '/loginPage.html';
             }
         });
 
@@ -89,13 +86,14 @@
         async function loadTables() {
             console.log("Loading users..."); // Start log
             try {
+                // Send a GET request to the backend getTables route
                 const response = await fetch('http://localhost:3000/getTables');
                 console.log("Received response:", response.status); // Log the response status
 
+                // Parse the JSON response from the server
                 if (!response.ok) {
                     throw new Error('Failed to fetch table data');
                 }
-
                 const tbl = await response.json();
                 console.log("User data:", tbl); // Log the user data received
 
@@ -138,12 +136,14 @@
         async function reserveTable(tableID) {
             if (confirm('Are you sure you want to reserve this table?')) {
                 try {
+                    // Send a POST request to the backend reserveTable route
                     const response = await fetch(`http://localhost:3000/reserveTable`, {
                         method: 'POST',
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ tableID })
                     });
 
+                    // Parse the JSON response from the server
                     const result = await response.json();
 
                     if (response.ok) {
