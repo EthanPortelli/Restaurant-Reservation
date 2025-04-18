@@ -17,3 +17,5 @@ database and set the status of the table from "Claimed" to "Available", so that 
 on the main page once more. To go back to the home page, click "Home" on the top of the tape. 
 
 To sign out, simply click "Sign Out" on the top of the main/account pages.
+
+Github Repository: https://github.com/EthanPortelli/Restaurant-Reservation
