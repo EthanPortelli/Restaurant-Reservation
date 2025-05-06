@@ -149,14 +149,21 @@ exports.reserveTable = async (req, res) => {
             return res.status(401).json({ error: "Unauthorized. Please log in." });
         }
 
-        //Check that table exists 
+        // Check that table exists 
         const [rows] = await conn.query("SELECT * FROM Tables WHERE tableID = ?", [tableID]);
         if (rows.length === 0) {
             conn.release();
             return res.status(404).json({ error: "Table not found" });
         }
+
+        // Check that table has not already been reserved
+        const results = await conn.query("SELECT tableStatus FROM Tables WHERE tableID = ?", [tableID]);
+        if (results.length > 0) {
+            conn.release();
+            return res.status(400).json({ error: 'Table is already taken' });
+        }
+
                 
-    
         // Update the table status in the database
         const tableStatus = "Claimed";
         const result1 = await conn.query("UPDATE Tables SET tableStatus = ? WHERE tableID = ?", [tableStatus, tableID]);
