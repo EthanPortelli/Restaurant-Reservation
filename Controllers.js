@@ -1,6 +1,6 @@
 const pool = require("./Database"); // Import the database connection
 const bcrypt = require('bcryptjs');
-
+const { getTableMutex } = require('./lockManager'); //Import the Mutex 
 
 // Route to check credentials at login
 exports.login = async (req, res) => {
@@ -18,7 +18,7 @@ exports.login = async (req, res) => {
                 // Store user ID in the session
                 req.session.userID = usersInfo.userID;
                 res.json({ ID: usersInfo.userID, success: true }); // send JSON response to client
-
+                console.log(`Login successful: ${UserName}`);
             } else {
                 console.log(`Failed login attempt: ${UserName} (Invalid password)`);
                 res.status(401).json({ message: 'Invalid password' });
@@ -138,6 +138,8 @@ exports.getTables = async (req, res) => {
 // Route to reserve a table
 exports.reserveTable = async (req, res) => {
     const { tableID } = req.body;
+    const mutex = getTableMutex(tableID);
+    const release = await mutex.acquire(); // Function locked (mutex)
 
     try {
         const conn = await pool.getConnection();
@@ -156,9 +158,8 @@ exports.reserveTable = async (req, res) => {
             return res.status(404).json({ error: "Table not found" });
         }
 
+         // If already claimed, reject the reservation
         const tableStatus = rows[0].tableStatus;
-
-        // If already claimed, reject the reservation
         if (tableStatus === 'Claimed') {
             conn.release();
             return res.status(400).json({ error: "Table is already taken" });
@@ -183,6 +184,8 @@ exports.reserveTable = async (req, res) => {
     } catch (err) {
         console.error("Database error:", err);
         res.status(500).json({ error: 'Database error when reserving a table' });
+    } finally {
+        release(); // Function unlocked
     }
 };
 
