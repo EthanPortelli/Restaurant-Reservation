@@ -137,63 +137,55 @@ exports.getTables = async (req, res) => {
 
 // Route to reserve a table
 exports.reserveTable = async (req, res) => {
-    const { tableID } = req.body; // receive data from client
+    const { tableID } = req.body;
 
     try {
         const conn = await pool.getConnection();
+        const userID = req.session.userID;
 
         // Ensure user is logged in
-        const userID = req.session.userID;
         if (!userID) {
             conn.release();
             return res.status(401).json({ error: "Unauthorized. Please log in." });
         }
 
-        // Check that table exists 
-        const [rows] = await conn.query("SELECT * FROM Tables WHERE tableID = ?", [tableID]);
+        // Check that the table exists and get its status
+        const rows = await conn.query("SELECT tableStatus FROM Tables WHERE tableID = ?", [tableID]);
         if (rows.length === 0) {
             conn.release();
             return res.status(404).json({ error: "Table not found" });
         }
 
-        // Check that table has not already been reserved (needs double checking, currently same user can reserve same table
-        // twice by having two mainpage.html's open)
-        const results = await conn.query("SELECT tableStatus FROM Tables WHERE tableID = ?", [tableID]);
-        if (results.length > 0) {
+        const tableStatus = rows[0].tableStatus;
+
+        // If already claimed, reject the reservation
+        if (tableStatus === 'Claimed') {
             conn.release();
-            return res.status(400).json({ error: 'Table is already taken' });
-        }
-        
-        // Update the table status in the database
-        const tableStatus = "Claimed";
-        const result1 = await conn.query("UPDATE Tables SET tableStatus = ? WHERE tableID = ?", [tableStatus, tableID]);
-        if (result1.affectedRows === 0) {
-            return res.status(400).json({ error: "No changes made to the database" });
-        }
-        
-        // Record the table reservation in the database
-        const result2 = await conn.query("INSERT INTO Reservations (userID, tableID) VALUES (?, ?)", [userID, tableID]);
-        if (result2.affectedRows === 0) {
-            return res.status(400).json({ error: "No changes made to the database" });
+            return res.status(400).json({ error: "Table is already taken" });
         }
 
-        //Get the reservation ID to ensure it worked
-        const result3 = await conn.query("SELECT * FROM Reservations WHERE userID = ? AND tableID = ?", [userID, tableID]);
-        if (result3.affectedRows === 0) {
-            return res.status(400).json({ error: "No changes made to the database" });
+        // Check if the user has already reserved this table
+        const existing = await conn.query("SELECT * FROM Reservations WHERE userID = ? AND tableID = ?", [userID, tableID]);
+        if (existing.length > 0) {
+            conn.release();
+            return res.status(400).json({ error: "You have already reserved this table" });
         }
+
+        // Reserve the table: update status and insert reservation
+        await conn.query("UPDATE Tables SET tableStatus = 'Claimed' WHERE tableID = ?", [tableID]);
+        await conn.query("INSERT INTO Reservations (userID, tableID) VALUES (?, ?)", [userID, tableID]);
 
         conn.release();
 
-        console.log(`Status updated for table: ${tableID}`);
-        console.log(`Reservation created for user: ${userID}`);
-        res.json({ message: 'Table reserved successfully!', success: true }); // send JSON response to client  
+        console.log(`Table ${tableID} reserved by user ${userID}`);
+        res.json({ message: 'Table reserved successfully!', success: true });
 
     } catch (err) {
         console.error("Database error:", err);
         res.status(500).json({ error: 'Database error when reserving a table' });
     }
 };
+
 
 
 // Route to cancel a reservation
