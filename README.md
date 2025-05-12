@@ -2,8 +2,9 @@
 A reservation system for restaurant tables, created as a locally hosted website using NodeJs, Express, Mariadb, etc. It 
 uses Async Mutex to prevent synchronization issues / race conditions (Express → TCP)
 
-This is the enhanced version of the project. Newly implemented features: A map to keep track of mutexes, synchronization handling (async mutex) 
-and related error handling, as well as additional checks in the SQL to prevent errors. 
+This is the enhanced version of the project. Newly fully implemented features: A map to keep track of mutexes, synchronization handling (async mutex) 
+and related error handling, as well as additional checks in the SQL to prevent errors. Given more time, perhaps I would implement some scalability
+to this project. 
 
 In order to run it, you would have to install NodeJs and MariaDb. Once installed, 
 run the database.sql file in HeidiSQL (a frontend interface that is installed with Mariadb) to set up the database. 
