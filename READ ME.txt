@@ -1,6 +1,7 @@
 RESTARUANT RESERVATION WEBSITE
 
-A reservation system for restaurant tables, created as a locally hosted website using NodeJs, Express, Mariadb, etc. (using Redis and/or Async Mutex for synchronization) (Express → TCP)
+A reservation system for restaurant tables, created as a locally hosted website using NodeJs, Express, Mariadb, etc. (using 
+Redis and/or Async Mutex for synchronization) (Express → TCP)
 
 This is the minimalist version. In order to run it, you would have to install NodeJs and MariaDb. Once installed, 
 run the database.sql file in HeidiSQL (a frontend interface that is installed with Mariadb) to set up the database. 
