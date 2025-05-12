@@ -24,12 +24,12 @@
     // Login Form Submission
     document.getElementById("loginForm").addEventListener("submit", async function(event) {
         event.preventDefault(); // Prevent page reload
-
-        try {
-            // Capture input values
-            const UserName = document.getElementById("loginUsername").value.trim();
-            const userPassword = document.getElementById("loginPassword").value.trim();
-
+        
+        // Capture input values
+        const UserName = document.getElementById("loginUsername").value.trim();
+        const userPassword = document.getElementById("loginPassword").value.trim();
+        
+        try {   
             // Send a POST request to the backend login route
             const response = await fetch('/login', {
                 method: 'POST',
