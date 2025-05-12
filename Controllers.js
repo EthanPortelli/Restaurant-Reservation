@@ -2,6 +2,7 @@ const pool = require("./Database"); // Import the database connection
 const bcrypt = require('bcryptjs');
 const { getTableMutex } = require('./lockManager'); //Import the Mutex 
 
+
 // Route to check credentials at login
 exports.login = async (req, res) => {
     const { UserName, userPassword } = req.body; // receive data from client
@@ -188,7 +189,6 @@ exports.reserveTable = async (req, res) => {
         release(); // Function unlocked
     }
 };
-
 
 
 // Route to cancel a reservation
